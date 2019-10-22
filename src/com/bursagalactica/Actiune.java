@@ -11,6 +11,9 @@ public class Actiune {
         this.cantitate = cantitate;
         this.valoare = valoare;
     }
+    public String getInfo() {
+        return "{ name:"+nume+", value:"+valoare+"volume:"+cantitate+"}";
+    }
 
     public void getDetalii() {
         System.out.println(nume);

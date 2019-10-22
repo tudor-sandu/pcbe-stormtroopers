@@ -3,6 +3,7 @@ package com.bursagalactica;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -22,8 +23,38 @@ public class Main {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/buy", new BuyHandler(c,ny));
         server.createContext("/sell", new SellHandler(v,ny));
+        server.createContext("/info", new InfoHandler(ny));
         server.setExecutor(null); // creates a default executor
         server.start();
+    }
+
+    static class InfoHandler implements HttpHandler {
+        private Bursa b;
+        public InfoHandler(Bursa b) {
+            this.b = b;
+        }
+
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String encoding = "UTF-8";
+            t.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+            t.getResponseHeaders().set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+            t.getResponseHeaders().set("Access-Control-Allow-Credentials", "true");
+            t.getResponseHeaders().set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS,HEAD");
+            t.getResponseHeaders().set("Content-Type", "text/html; charset=" + encoding);
+
+            StringBuilder resp = new StringBuilder();
+            ArrayList<Actiune> ActiuniCumparare = b.getActiuniCumparare();
+            for (Actiune a : ActiuniCumparare
+            ) {
+                resp.append(a.getInfo());
+                resp.append('\n');
+            }
+            t.sendResponseHeaders(200, resp.toString().length());
+            OutputStream os = t.getResponseBody();
+            os.write(resp.toString().getBytes());
+            os.close();
+        }
     }
 
     static class BuyHandler implements HttpHandler {
