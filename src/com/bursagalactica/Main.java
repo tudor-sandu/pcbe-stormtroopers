@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -45,11 +46,37 @@ public class Main {
 
             StringBuilder resp = new StringBuilder();
             ArrayList<Actiune> ActiuniCumparare = b.getActiuniCumparare();
-            for (Actiune a : ActiuniCumparare
-            ) {
-                resp.append(a.getInfo());
-                resp.append('\n');
+            Iterator<Actiune> iterator = ActiuniCumparare.iterator();
+            resp.append("{ \"actiuni_cumparare\":");
+
+            resp.append('[');
+            while (iterator.hasNext()) {
+                Actiune actiune = iterator.next();
+                if (!iterator.hasNext()) {
+                    resp.append(actiune.getJSON());
+                } else {
+                    resp.append(actiune.getJSON());
+                    resp.append(',');
+                }
             }
+            resp.append("],");
+
+
+            ArrayList<Actiune> ActiuniVanzare = b.getActiuniVanzare();
+            Iterator<Actiune> iterator_vanzare = ActiuniVanzare.iterator();
+            resp.append("\"actiuni_vanzare\":");
+
+            resp.append('[');
+            while (iterator_vanzare.hasNext()) {
+                Actiune actiune = iterator_vanzare.next();
+                if (!iterator_vanzare.hasNext()) {
+                    resp.append(actiune.getJSON());
+                } else {
+                    resp.append(actiune.getJSON());
+                    resp.append(',');
+                }
+            }
+            resp.append("]}");
             t.sendResponseHeaders(200, resp.toString().length());
             OutputStream os = t.getResponseBody();
             os.write(resp.toString().getBytes());

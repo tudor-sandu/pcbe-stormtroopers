@@ -10,6 +10,7 @@ public class Bursa {
     public synchronized void vinde(Actiune e) {
         ActiuniVanzare.add(e);
     }
+
     public synchronized void cumpara(Actiune e) {
         ActiuniCumparare.add(e);
     }
@@ -24,15 +25,5 @@ public class Bursa {
 
     public void verificaTranzactii() {
         System.out.println("--------------Verific tranzatiii-----------");
-        System.out.println("--------------Cumparare-----------");
-        for (Actiune a : ActiuniCumparare
-        ) {
-            a.getDetalii();
-        }
-        System.out.println("--------------Vanzare-----------");
-        for (Actiune a : ActiuniVanzare
-        ) {
-            a.getDetalii();
-        }
     }
 }
