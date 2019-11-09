@@ -1,17 +1,24 @@
 package com.bursagalactica;
 
-
 public class Agent {
-    public void tranzactioneaza(Bursa b) {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    b.verificaTranzactii();
-                    Thread.sleep(60000);
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }).start();
+    private String numeAgent;
+
+    public Agent(String numeAgent) {
+        this.numeAgent = numeAgent;
+    }
+
+    public String getNumeAgent() {
+        return this.numeAgent;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        Agent agent = (Agent) object;
+        return object.getClass() == getClass() && agent.getNumeAgent().equals(this.numeAgent);
+    }
+
+    @Override
+    public String toString() {
+        return numeAgent;
     }
 }
