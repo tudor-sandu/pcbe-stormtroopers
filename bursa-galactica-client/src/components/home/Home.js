@@ -14,6 +14,7 @@ import "./Home.css";
 const buy = 0;
 const sell = 1;
 const profile = 2;
+const logout = 3;
 
 class Home extends Component {
   constructor(props) {
@@ -44,6 +45,9 @@ class Home extends Component {
   }
 
   setSelectedSection(section) {
+    if (section == logout) {
+      this.props.logout();
+    }
     this.setState({ selectedSection: section });
   }
 
