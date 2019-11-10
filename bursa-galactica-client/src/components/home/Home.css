@@ -34,3 +34,36 @@
 .stockItemHeader:hover {
   background: white;
 }
+
+.stockTitle {
+  justify-content: center;
+  font-weight: 900;
+}
+
+.sellFabButton {
+  position: absolute !important;
+  right: 64px;
+  bottom: 64px;
+  background: green !important;
+}
+
+.modalContainer {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  background: white;
+  padding: 32px;
+  margin: auto;
+  width: 500px;
+  height: 400px;
+  margin-top: calc(50vh - 200px);
+  outline: none;
+}
+
+.modalTitle {
+  font-weight: 300;
+  opacity: 0.7;
+}
+.modalDescription {
+  font-weight: 300;
+  opacity: 0.7;
+}

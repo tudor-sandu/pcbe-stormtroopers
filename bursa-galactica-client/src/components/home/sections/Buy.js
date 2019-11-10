@@ -21,7 +21,10 @@ class Buy extends Component {
     return (
       <div>
         {this.state.availableStocks && (
-          <StockTable stocks={this.state.availableStocks} />
+          <StockTable
+            stocks={this.state.availableStocks}
+            title="Stock Available to buy"
+          />
         )}
       </div>
     );
