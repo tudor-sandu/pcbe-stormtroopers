@@ -14,7 +14,7 @@ public class Main{
         String[] c = {"Smith","Will","Ana"};
     for(int i=0;i<3;i++){
         vanzatori.add(new Vanzator(v[i],bursa));
-        cumparatori.add(new Cumparator(c[i],bursa,(1000*random.nextDouble() + 1500.0)));
+        cumparatori.add(new Cumparator(c[i],bursa,(random.nextInt(100) + 150.0)));
     }
 
     for (Vanzator vanzator:vanzatori){
@@ -23,9 +23,8 @@ public class Main{
             public void run(){
                 while(true){
                     try{
-                    vanzator.punePeBursa(random.nextInt(10) + 1, 10*random.nextDouble() + 5.5);
-                    Thread.sleep(2000);
-                    System.out.print("zzzz");
+                    vanzator.punePeBursa(random.nextInt(10) + 1, random.nextInt(10) + 5.0);
+                    Thread.sleep(500);
                     }
                     catch(InterruptedException ie ){
                         System.out.println("InterruptedException caught");
@@ -41,9 +40,8 @@ public class Main{
             public void run(){
                 while(true){
                     try{
-                        System.out.print("aaaaa");
-                    cumparator.adaugaCerere(random.nextInt(10) + 1, 10*random.nextDouble() + 4.0);
-                    Thread.sleep(2000);
+                    cumparator.adaugaCerere(random.nextInt(10) + 1, random.nextInt(10) + 5.0);
+                    Thread.sleep(500);
                     }
                     catch(InterruptedException ie ){
                         System.out.println("InterruptedException caught");

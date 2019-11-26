@@ -27,6 +27,7 @@ public abstract class Actiune {
             System.out.println("Nu poti tranzactiona mai multe actiuni decat exista pe piata");
             return;
         }
+        
         this.cantitate -= cantitate;
     }
 

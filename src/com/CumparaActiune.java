@@ -15,7 +15,9 @@ public class CumparaActiune extends Actiune{
         super(cantitate, pret);
         this.cumparator = cumparator;
     }
-
+        public String getNumeCumparator(){
+            return cumparator.nume;
+        }
     public void tranzactioneaza(final int cantitate) {
         super.tranzactioneaza(cantitate);
         this.cumparator.actiuneCumparata(cantitate, super.getPrice());

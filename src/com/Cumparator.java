@@ -2,13 +2,13 @@ package com.bursagalactica;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
-
+import java.text.DecimalFormat;
 public class Cumparator{
     private Bursa b;
     private double contBancar;
     private int cantitateActiuni=0;
-    private String nume;
+    public String nume;
+    DecimalFormat numberFormat = new DecimalFormat("#.00");
 
     public Cumparator(String nume, Bursa b, double contBancar) {
         this.nume = nume;
@@ -21,6 +21,7 @@ public class Cumparator{
     }
 
     public void adaugaCerere(int cantitate, double pret) {
+        // System.out.println("adaugaCerere cantitate:"+cantitate+" pret:"+pret);
         CumparaActiune ca = new CumparaActiune(cantitate, pret, this);
         this.b.adaugaCerere(ca);
     }
@@ -29,9 +30,9 @@ public class Cumparator{
     public void actiuneCumparata(int cantitate, double pret) {
         this.cantitateActiuni += cantitate;
         contBancar -= cantitate*pret;
-        System.out.println("Cumparatorul " + this.nume + " a cumparat" + 
-                            cantitate + " actiuni cu " + pret*cantitate + " si acuma detine"+cantitateActiuni+
-                            " si mai are " +contBancar + " bani.");
+        System.out.println( this.nume + " cumpara " + 
+                            cantitate + " actiuni cu " + numberFormat.format(pret*cantitate) + ". Detine "+cantitateActiuni+
+                            " actiuni si " + numberFormat.format(contBancar) + " lei.");
     }
 
 

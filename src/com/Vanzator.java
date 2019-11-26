@@ -2,11 +2,12 @@ package com.bursagalactica;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
+import java.text.DecimalFormat;
 public class Vanzator {
     private Bursa b;
     private double contBancar=0.0;
     private String nume;
+    DecimalFormat numberFormat = new DecimalFormat("#.00");
 
     public Vanzator(String n,Bursa b) {
         nume = n;
@@ -20,8 +21,7 @@ public class Vanzator {
 
     public void actiuneVanduta(double pret) {
         this.contBancar += pret;
-        System.out.println(
-                "Vanzatorul " + nume + " a primi " + pret + " lei pe actiunile sale. Total in cont: " 
-                + contBancar + " lei.");
+        System.out.println( nume + " a vandut actiuni in valoare de " +  numberFormat.format(pret) +
+                 " lei. Sold cont: " + numberFormat.format(contBancar) + " lei.");
     }
 }
