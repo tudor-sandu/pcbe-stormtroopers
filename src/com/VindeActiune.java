@@ -4,13 +4,13 @@ public class VindeActiune extends Actiune{
         private Vanzator vanzator;
 
     public VindeActiune(int cantitate, double pret, Vanzator vanzator){
-        super(cantitate, pret);
+        super(cantitate, pret, cumparator);
         this.vanzator = vanzator;
     }
 
     public void tranzactioneaza(int cantitate){
         super.tranzactioneaza(cantitate);
-        this.vanzator.actiuneVanduta(cantitate * super.getPrice());
+        super.vanzator.actiuneVanduta(cantitate * super.getPrice());
     }
   
 

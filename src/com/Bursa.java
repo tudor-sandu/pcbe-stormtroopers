@@ -4,17 +4,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.HashMap;
 
 public class Bursa {
 
-    private volatile ArrayList<VindeActiune> vindeActiuni ;
-    private volatile HashMap<CumparaActiune, Thread> oferteActiuni ;
+    private volatile ArrayList<Actiune> vindeActiuni ;
+    private volatile HashMap<Cerere, Thread> oferteActiuni ;
 
+    synchronized void sell(Actiune e) {
+        ActiuniVanzare.add(e);
+    }
 
     public Bursa(){
-        vindeActiuni = new ArrayList<>();
-        oferteActiuni = new HashMap<>();
+        ActiuniCumparare = new ArrayList<>();
+        ActiuniVanzare = new HashMap<>();
     }
 
     public synchronized void punePeBursa(VindeActiune actiune) {
@@ -29,9 +31,9 @@ public class Bursa {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
+                while (1) {
                     for (VindeActiune vindeActiune : vindeActiuni) {
-                        vindeActiune.tryTransaction(cumparaActiune);
+                        vindeActiuni.tryTransaction(cumparaActiune);
                         if (vindeActiune.getCount() == 0) {
                             scoateDePeBursa(vindeActiune);
                         }

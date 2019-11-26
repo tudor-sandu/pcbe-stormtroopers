@@ -24,7 +24,7 @@ public abstract class Actiune {
     }
 
     public void setInTransaction(boolean statusTranzactie) {
-        this.inTranzactie = statusTranzactie;
+        this.inTranzaction = statusTranzactie;
     }
 
     public void tranzactioneaza(int cantitate){
