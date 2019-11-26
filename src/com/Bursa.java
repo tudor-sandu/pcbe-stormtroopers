@@ -4,36 +4,37 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-
+import java.util.HashMap;
 public class Bursa {
 
-    private volatile ArrayList<Actiune> vindeActiuni ;
-    private volatile HashMap<Cerere, Thread> oferteActiuni ;
+    private volatile ArrayList<VindeActiune> vindeActiuni ;
+    private volatile HashMap<CumparaActiune, Thread> oferteActiuni ;
 
-    synchronized void sell(Actiune e) {
-        ActiuniVanzare.add(e);
-    }
 
     public Bursa(){
-        ActiuniCumparare = new ArrayList<>();
-        ActiuniVanzare = new HashMap<>();
+        vindeActiuni = new ArrayList<>();
+        oferteActiuni = new HashMap<>();
     }
 
     public synchronized void punePeBursa(VindeActiune actiune) {
-        vindeActiuni.add(actiune);
+        ArrayList<VindeActiune> va= new ArrayList<VindeActiune>(this.vindeActiuni);
+        va.add(actiune);
+        this.vindeActiuni = va;
     }
 
     public synchronized void scoateDePeBursa(VindeActiune actiune) {
-        vindeActiuni.remove(actiune);
+        ArrayList<VindeActiune> va= new ArrayList<VindeActiune>(this.vindeActiuni);
+        va.remove(actiune);
+        this.vindeActiuni = va;
     }
 
     public synchronized void adaugaCerere(CumparaActiune cumparaActiune) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (1) {
+                while (true) {
                     for (VindeActiune vindeActiune : vindeActiuni) {
-                        vindeActiuni.tryTransaction(cumparaActiune);
+                        vindeActiune.tryTransaction(cumparaActiune);
                         if (vindeActiune.getCount() == 0) {
                             scoateDePeBursa(vindeActiune);
                         }

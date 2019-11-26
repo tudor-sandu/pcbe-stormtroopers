@@ -21,21 +21,33 @@ public class Main{
         new Thread(new Runnable(){
             @Override
             public void run(){
-                while(1){
+                while(true){
+                    try{
+                    vanzator.punePeBursa(random.nextInt(10) + 1, 10*random.nextDouble() + 5.5);
                     Thread.sleep(2000);
-                    vanzator.punePeBursa(random.nextInt(10) + 1, rnd.nextDouble(15.0) + 0.5);
+                    System.out.print("zzzz");
+                    }
+                    catch(InterruptedException ie ){
+                        System.out.println("InterruptedException caught");
+                    }
                 }
             }
         }).start();
     }
 
-    for (Cumparator cumparator:cumparatori){
+    for (Cumparator cumparator: cumparatori){
         new Thread(new Runnable(){
             @Override
             public void run(){
-                while(1){
+                while(true){
+                    try{
+                        System.out.print("aaaaa");
+                    cumparator.adaugaCerere(random.nextInt(10) + 1, 10*random.nextDouble() + 4.0);
                     Thread.sleep(2000);
-                    cumparator.adaugaCerere(random.nextInt(10) + 1, rnd.nextDouble(14.0) + 0.5);
+                    }
+                    catch(InterruptedException ie ){
+                        System.out.println("InterruptedException caught");
+                    }
                 }
             }
         }).start();

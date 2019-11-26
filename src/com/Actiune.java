@@ -3,7 +3,6 @@ package com.bursagalactica;
 public abstract class Actiune {
     private double pret;
     private volatile int cantitate;
-    private volatile boolean inTranzactie = false;
 
 
     public Actiune(int cantitate,double pret) {
@@ -18,14 +17,10 @@ public abstract class Actiune {
     public int getCount() {
         return this.cantitate;
     }
+ 
 
-    public boolean getInTransaction() {
-        return this.inTranzactie;
-    }
-
-    public void setInTransaction(boolean statusTranzactie) {
-        this.inTranzaction = statusTranzactie;
-    }
+    public abstract boolean getInTransaction();
+    public abstract void setInTransaction(boolean b);
 
     public void tranzactioneaza(int cantitate){
         if(cantitate> this.cantitate){

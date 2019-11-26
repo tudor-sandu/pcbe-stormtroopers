@@ -2,20 +2,27 @@ package com.bursagalactica;
 
 public class VindeActiune extends Actiune{
         private Vanzator vanzator;
+        private volatile boolean inTranzactie = false;
 
+        public boolean getInTransaction() {
+            return this.inTranzactie;
+        }
+        public void setInTransaction(boolean b){
+            this.inTranzactie=b;
+        }
     public VindeActiune(int cantitate, double pret, Vanzator vanzator){
-        super(cantitate, pret, cumparator);
+        super(cantitate, pret);
         this.vanzator = vanzator;
     }
 
     public void tranzactioneaza(int cantitate){
         super.tranzactioneaza(cantitate);
-        super.vanzator.actiuneVanduta(cantitate * super.getPrice());
+        this.vanzator.actiuneVanduta(cantitate * super.getPrice());
     }
   
 
     public void tryTransaction(CumparaActiune cumparaActiune) {
-        if (super.getInTransaction() || cumparaActiune.getInTransaction()) {
+        if (this.getInTransaction() || cumparaActiune.getInTransaction()) {
             return;
         }
 
